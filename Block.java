@@ -1,28 +1,33 @@
 package blockchain;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Random;
 
-public class Block {
-
+public class Block implements Serializable {
     /*
     * A class for the Block objects.
-    * has a constructor which takes the previous block's hash and an identifier
-    * and creates an object of the class, calculating and assigning the object's own current hash
+    * has a constructor which takes the previous block's hash and the current identifier,
+    * creates an object of the class, calculating and assigning the object's own current hash
     * The timestamp is in seconds to create some pseudo randomness
     * also each block holds a reference to the next block, creating a single sided chain.
     */
 
-    private final String previousHash;                                      // The hash value of the last block.
-    private final String currentHash;                                       // The hash value of the current block.
-    private final Long identifier;                                          // Block's id within the chain.
-    private final Long timeStamp = new Date().getTime();                    // Timestamp in seconds
-                                                                            // to create pseudo-randomness
-    private Block next = null;                                              // Reference to the next block in the chain
+    private static final long serialVersionUID = 1L;                        // Version for Serializing
 
-    public Block(String previousHash, Long identifier) {                    // Constructor. Takes:
+    private final String previousHash;                                      // The hash value of the last block.
+    private final int identifier;                                           // Block's id within the chain.
+    private final Long timeStamp = new Date().getTime();                    // Timestamp in seconds
+
+                                                                            // to create pseudo-randomness
+    private int magicNumber;
+    private String currentHash;                                             // The hash value of the current block.
+
+    public Block(String previousHash, int identifier) {                     // Constructor. Takes:
         this.previousHash = previousHash;                                   // the previous block's hash
         this.identifier = identifier;                                       // and this block's identifier
-        this.currentHash = Hash.encode(previousHash + identifier.toString() + timeStamp);
+        magicNumber = 0;
+        this.currentHash = calculateHash();
     }                                                                       // and calculating it own hash
                                                                             // with the data it has.
 
@@ -34,7 +39,7 @@ public class Block {
         return currentHash;
     }
 
-    public Long getIdentifier() {
+    public int getIdentifier() {
         return identifier;
     }
 
@@ -42,12 +47,29 @@ public class Block {
         return timeStamp;
     }
 
-    public Block getNext () {
-        return next;
+    public void mine(int prefix) {
+        Random random = new Random();
+        String prefixString = new String(new char[prefix]).replace('\0', '0');
+        while (!currentHash.substring(0, prefix).equals(prefixString)) {
+            magicNumber = random.nextInt();
+            currentHash = calculateHash();
+        }
     }
 
-    public void setNext (Block block) {                                     // Setter for chaining the next block
-        this.next = block;
+    @Override
+    public String toString() {
+        return "Block: \n" +
+                "Id: " + identifier + "\n" +
+                "Timestamp: " + timeStamp + "\n" +
+                "Magic number: " + magicNumber + "\n" +
+                "Hash of the previous block: \n" +
+                previousHash + "\n" +
+                "Hash of the block: \n" +
+                currentHash;
+    }
+
+    private String calculateHash() {
+        return Hash.encode(previousHash + identifier + timeStamp + magicNumber);
     }
 
 }
