@@ -1,6 +1,6 @@
 # BlockChain #
 ## a HyperSkill.org project ##
-### Stage 1/6 ###
+### Stage 2/6 ###
 
  This is my code for [JetBrains Academy](https://hyperskill.org/)'s BlockChain Project.
 
@@ -14,11 +14,13 @@
 
  Currently, the program will create a sertain amount of Blocks,
  each holding:
-> The hash value of the last block,
+> The hash value of the last block
 
-> the hash value of the current block,
+> A magic number to complicate the hashing, requiring it to start with a certain amount of zeroes
 
-> block's id within the chain,
+> the hash value of the current block
+
+> block's id within the chain
 
 > timestamp in seconds, to create pseudo-randomness
 
@@ -28,7 +30,11 @@
  
  The app is built of the following classes:
 
-> Block class, for creating chains in the blockchain
+> Block class, creating the blockchain and printing info about each block added
+
+> BlockChain class which holds the BlockChain Arraylist of blocks and some info
+
+> BlockChainLoader class which manages saving and loading blockchains from a file
 
 > Hash class, holding the SHA-256 encoding function
 
