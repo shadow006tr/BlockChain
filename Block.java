@@ -24,12 +24,12 @@ public class Block implements Serializable {
     private String currentHash;                                             // The hash value of the current block.
 
     public Block(String previousHash, int identifier) {                     // Constructor. Takes:
-        this.previousHash = previousHash;                                   // the previous block's hash
-        this.identifier = identifier;                                       // and this block's identifier
-        magicNumber = 0;
-        this.currentHash = calculateHash();
-    }                                                                       // and calculating it own hash
-                                                                            // with the data it has.
+        this.previousHash = previousHash;                                   // the previous block's hash,
+        this.identifier = identifier;                                       // this block's identifier
+        magicNumber = 0;                                                    // and a magic number to mine hash
+                                                                            // starting with a certain amount of zeros
+        this.currentHash = calculateHash();                                 // and calculating it's own hash
+    }                                                                       // with the data it has.
 
     public String getPreviousHash() {                                       // Getters for each parameter,
         return previousHash;                                                // except timeStamp.
@@ -47,17 +47,17 @@ public class Block implements Serializable {
         return timeStamp;
     }
 
-    public void mine(int prefix) {
-        Random random = new Random();
+    public void mine(int prefix) {                                          // a function to complicate the mining
+        Random random = new Random();                                       // thus making the conterfeit less likely to happen
         String prefixString = new String(new char[prefix]).replace('\0', '0');
-        while (!currentHash.substring(0, prefix).equals(prefixString)) {
-            magicNumber = random.nextInt();
-            currentHash = calculateHash();
+        while (!currentHash.substring(0, prefix).equals(prefixString)) {    // because the hacker would have to calculate 
+            magicNumber = random.nextInt();                                 // the whole chain faster then the rest of
+            currentHash = calculateHash();                                  // the computers are adding new nodes.
         }
     }
 
     @Override
-    public String toString() {
+    public String toString() {                                              // print for the blocks
         return "Block: \n" +
                 "Id: " + identifier + "\n" +
                 "Timestamp: " + timeStamp + "\n" +
@@ -68,7 +68,7 @@ public class Block implements Serializable {
                 currentHash;
     }
 
-    private String calculateHash() {
+    private String calculateHash() {                                        // calculating the hash using sha256
         return Hash.encode(previousHash + identifier + timeStamp + magicNumber);
     }
 
