@@ -42,5 +42,4 @@ public class BlockChain {
         return block;
     }
 
-
 }
