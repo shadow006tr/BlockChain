@@ -41,8 +41,8 @@ public class Main {
         }
     }
 
-    static int getPrefix() {                                                // A method to pick the amount of zeros
-        int prefix;                                                         // in the prefix
+    static int getPrefix() {                                                // A method to pick the amount
+        int prefix;                                                         // of zeros in the prefix
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Enter how many zeros the hash must start with: ");
             prefix = scanner.nextInt();
