@@ -41,8 +41,7 @@ public class Main {
         }
     }
 
-    // A method to pick the amount of zeros
-    static int getPrefix() {
+    static int getPrefix() {                                                // A method to pick the amount of zeros
         int prefix;                                                         // in the prefix
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Enter how many zeros the hash must start with: ");
@@ -51,8 +50,7 @@ public class Main {
         return prefix;
     }
 
-    // A method to print after every created block.
-    static void outputResults(Block block, long runtTimeSeconds) {
+    static void outputResults(Block block, long runtTimeSeconds) {          // A method to print after every created block.
         System.out.println(block);                                          // Printing the block's information
         System.out.println("Block was generating for " + runtTimeSeconds + " seconds\n");
     }                                                                       // and the time it took to create it.
