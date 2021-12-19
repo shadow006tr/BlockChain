@@ -11,12 +11,12 @@ public class Validator {
      */
 
     public static boolean notValid(ArrayList<Block> blockChain) {
-        boolean result = false;                                              // Return result
+        boolean result = false;                                             // Return result
         String lastHash = "0";                                              // The hash of each block
 
         for (Block block : blockChain) {                                    // Run on the whole chain
             if (!lastHash.equals(block.getPreviousHash())) {                // If it finds inconsistency,
-                result = true;                                             // the chain is not valid.
+                result = true;                                              // the chain is not valid.
                 break;                                                      // So it stops running.
             } else {                                                        // if the chain is correct so far
                 lastHash = block.getCurrentHash();                          // update the last hash
