@@ -10,9 +10,9 @@ public class BlockChainLoader {
      */
 
 
-    // a method to load a BlockChain
+    
     public static BlockChain loadBlockChain(int prefix, String path) {
-        try (
+        try (                                                               // a method to load a BlockChain
                 FileInputStream file = new FileInputStream(path);           // Try with resources for a file stream
                 ObjectInputStream objectInput = new ObjectInputStream(file) // and a objectInput stream.
                 ) {
@@ -35,8 +35,9 @@ public class BlockChainLoader {
         }
     }
 
-    //a method to save a new block to the file in the path
+    
     public static void saveBlock(String path, Block block) throws IOException {
+                                                                            //a method to save a new block to the file in the path
         try(                                                                // Try with resources for a file stream
                 FileOutputStream file = new FileOutputStream(path, true);
                 ObjectOutputStream objectOutput = new ObjectOutputStream(file)
