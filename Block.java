@@ -71,5 +71,4 @@ public class Block implements Serializable {
     private String calculateHash() {                                        // calculating the hash using sha256
         return Hash.encode(previousHash + identifier + timeStamp + magicNumber);
     }
-
 }
